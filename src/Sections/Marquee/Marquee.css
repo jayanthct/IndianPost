@@ -1,0 +1,29 @@
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #8b0000; /* Dark red like India Post */
+  white-space: nowrap;
+  position: relative;
+  padding: 10px 0;
+}
+
+.marquee-content {
+  display: inline-block;
+  color: white;
+  font-size: 14px;
+  animation: marquee-scroll 60000ms linear infinite;
+}
+
+.marquee-link {
+  color: yellow;
+  text-decoration: underline;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
