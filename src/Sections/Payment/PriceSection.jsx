@@ -13,15 +13,7 @@ const PriceSection = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const cookie = document.cookies;
-
-    if (cookie) {
-      console.log("Stolen Cookie (for demo):", cookie);
-    } else {
-      console.warn("No cookie found! Set one first.");
-    }
-  };
+  
 
   const [address, setAddress] = useState("");
   return (
@@ -93,7 +85,7 @@ const PriceSection = () => {
             </button>
             <button
               className="bg-green-600 hover:bg-green-800 text-white px-4 py-2 rounded-md font-semibold cursor-pointer"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
             >
               Pay Now
             </button>
