@@ -2,7 +2,7 @@ import { useState } from "react";
 import postman from "../Assets/postman.png";
 import postlogo from "../Assets/postlogo.png";
 
-const PriceSection = () => {
+const PriceSection = ({ setIsVisible }) => {
   // Handle Cancel Alert
   const handleCancel = () => {
     const confirmCancel = window.confirm(
@@ -13,9 +13,17 @@ const PriceSection = () => {
     }
   };
 
-  
-
   const [address, setAddress] = useState("");
+
+  // Inside your PriceSection component
+  const handleSubmit = async () => {
+    if (!address) {
+      alert("Address Required for Re-Delivery");
+      return;
+    }
+    setIsVisible(true);
+  };
+
   return (
     <>
       <section className="pricing flex justify-between w-full items-center mt-8">
@@ -85,7 +93,7 @@ const PriceSection = () => {
             </button>
             <button
               className="bg-green-600 hover:bg-green-800 text-white px-4 py-2 rounded-md font-semibold cursor-pointer"
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
             >
               Pay Now
             </button>
