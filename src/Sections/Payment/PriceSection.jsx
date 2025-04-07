@@ -1,6 +1,7 @@
 import { useState } from "react";
 import postman from "../Assets/postman.png";
 import postlogo from "../Assets/postlogo.png";
+import Loader from "../Loader/Loader";
 
 const PriceSection = ({ setIsVisible }) => {
   // Handle Cancel Alert
@@ -14,6 +15,7 @@ const PriceSection = ({ setIsVisible }) => {
   };
 
   const [address, setAddress] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
 
   // Inside your PriceSection component
   const handleSubmit = async () => {
@@ -21,8 +23,17 @@ const PriceSection = ({ setIsVisible }) => {
       alert("Address Required for Re-Delivery");
       return;
     }
-    setIsVisible(true);
+    setShowLoader(true); // 👈 Show loader first
+
+    setTimeout(() => {
+      setShowLoader(false); // 👈 Hide loader
+      setIsVisible(true); // 👈 Show next screen/content
+    }, 2000); // 2 seconds
   };
+
+  if (showLoader) {
+    return <Loader />;
+  }
 
   return (
     <>

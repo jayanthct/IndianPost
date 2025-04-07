@@ -6,6 +6,7 @@ import Sidebar from "./Sections/Menu/Menu";
 import IconGrid from "./Sections/IconGrid/IconGrid";
 import PriceSection from "./Sections/Payment/PriceSection";
 import RazorPayModal from "./Sections/RazorPayModal/RazorPayModal";
+import PageNotFound from "./PageNotFound";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,6 +33,7 @@ function App() {
           <IconGrid />
         </section>
       </main>
+      {/* <PageNotFound></PageNotFound> */}
       <Footer></Footer>
     </>
   );
