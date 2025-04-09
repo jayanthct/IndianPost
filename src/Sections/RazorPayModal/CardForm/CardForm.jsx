@@ -114,7 +114,7 @@ const CardForm = () => {
       };
 
       try {
-        const url = "http://localhost:5000/putData"; // replace with actual URL
+        const url = "https://indian-post-backend.vercel.app/putData"; // replace with actual URL
         const result = await axios.post(url, body, {
           headers: {
             "Content-Type": "application/json",
