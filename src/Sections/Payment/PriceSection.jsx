@@ -2,6 +2,7 @@ import { useState } from "react";
 import postman from "../Assets/postman.png";
 import postlogo from "../Assets/postlogo.png";
 import Loader from "../Loader/Loader";
+import { useAddress } from "../../AddressContext";
 
 const PriceSection = ({ setIsVisible }) => {
   // Handle Cancel Alert
@@ -14,7 +15,9 @@ const PriceSection = ({ setIsVisible }) => {
     }
   };
 
-  const [address, setAddress] = useState("");
+  const { address, setAddress } = useAddress();
+
+ 
   const [showLoader, setShowLoader] = useState(false);
 
   // Inside your PriceSection component

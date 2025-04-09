@@ -15,6 +15,9 @@ const PageNotFound = () => {
   return (
     <>
       <NavBar />
+      <p className="text-gray-600 text-center text-lg mt-4">
+        Redirecting you in 3 seconds...
+      </p>
       <section className="pagenotfound w-full px-[10%] flex flex-col justify-center items-center gap-4 my-2">
         <h1 className="font-bold text-[72px] text-red-800">
           Server Crashed 500
@@ -24,9 +27,6 @@ const PageNotFound = () => {
           alt="Server Error Illustration"
           className="illustrions w-[60%] -mt-[6%]"
         />
-        <p className="text-gray-600 text-lg mt-4">
-          Redirecting you in 3 seconds...
-        </p>
       </section>
       <footer></footer>
     </>

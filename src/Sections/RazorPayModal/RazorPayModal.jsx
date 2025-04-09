@@ -13,7 +13,9 @@ import gpay from "./gpay.png";
 import Timer from "../Timer/Timer";
 import CardForm from "./CardForm/CardForm";
 
+
 const RazorPayModal = ({ isVisible, setIsVisible }) => {
+
   if (!isVisible) return null;
   return (
     isVisible && (
