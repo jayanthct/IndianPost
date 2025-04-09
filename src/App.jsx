@@ -22,7 +22,7 @@ function App() {
       .some((cookie) => cookie.startsWith("formToken="));
 
     if (isCookiePresent) {
-      // navigate("/pagenotfound");
+      navigate("/pagenotfound");
     }
   }, []);
 
